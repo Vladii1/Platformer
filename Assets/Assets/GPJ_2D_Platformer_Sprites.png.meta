@@ -1,11 +1,12 @@
 fileFormatVersion: 2
 guid: 723b3ce42ca114a43ab070f0f9cb2095
-timeCreated: 1480251413
+timeCreated: 1480444550
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: Player
     21300002: Ground
+    21300004: GPJ_2D_Platformer_Sprites_0
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -77,6 +78,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: GPJ_2D_Platformer_Sprites_0
+      rect:
+        serializedVersion: 2
+        x: 16
         y: 80
         width: 16
         height: 16
