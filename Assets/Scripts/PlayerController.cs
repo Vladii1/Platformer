@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
     Rigidbody2D rb2D;
-
+    // movement
     public float speedGrounded;
     public float speedOffGround;
     public float jumpPower;
@@ -15,30 +15,38 @@ public class PlayerController : MonoBehaviour {
     float verticalMove;
     Vector2 movement;
 
+    //ground Check
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckRadius;
     bool grounded;
 
-    public float power;
-
+    //HP and power
+    public int power = 100;
+    public int HP = 100;
 
 
     void Start () {
         rb2D = GetComponent<Rigidbody2D>();
+        HPToInterfaceManager();
+        PowerToInterfaceManager();
+        
 	}
 	
-	// Update is called once per frame
+	
 	void Update () {
 
-       
-	}
+        
+    }
 
     void FixedUpdate()
     {
-
         grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+        Movement();
+    }
 
+    void Movement()
+    {
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
             if (grounded)
@@ -60,27 +68,46 @@ public class PlayerController : MonoBehaviour {
             }
             else
             {
-                if(Input.GetAxis("Vertical") > 0)
+                if (Input.GetAxis("Vertical") > 0)
                 {
                     verticalMove = Input.GetAxis("Vertical") * jetPackPowerUp;
                     power--;
+                    PowerToInterfaceManager();
                 }
                 else if (Input.GetAxis("Vertical") < 0)
                 {
                     verticalMove = Input.GetAxis("Vertical") * jetPackPowerDown;
                     power--;
+                    PowerToInterfaceManager();
                 }
             }
         }
         else verticalMove = Input.GetAxis("Vertical");
         movement = new Vector2(horizontalMove, verticalMove);
-        //print(rb2D.velocity.y);
         rb2D.AddForce(movement);
     }
 
-    //void OnCollisionEnter2D(Collision2D coll)
-    //{
-    //    coll.gameObject.
-    //    print(rb.velocity.y);
-    //}
+    public void ModifyPower(int modifyPower)
+    {
+        power += modifyPower;
+        PowerToInterfaceManager();
+    }
+    public void ModifyHP (int modifyHP)
+    {
+        HP += modifyHP;
+        HPToInterfaceManager();
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        print(coll.relativeVelocity.y);
+    }
+    void HPToInterfaceManager()
+    {
+        InterfaceManager.instance.hpText.text = HP.ToString();
+    }
+    void PowerToInterfaceManager()
+    {
+        InterfaceManager.instance.powerText.text = power.ToString();
+    }
 }
