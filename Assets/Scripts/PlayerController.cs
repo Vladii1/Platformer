@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour {
     public Transform groundCheck;
     public LayerMask groundLayer;
     public float groundCheckRadius;
-    bool grounded;
+    public bool grounded;
 
     //HP and power
     public int power = 100;
