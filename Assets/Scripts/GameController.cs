@@ -14,9 +14,15 @@ public class GameController : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public void PlayerRespown()
+    public void  PlayerRespown()
     {
+        WFS();
         player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         player.transform.position = currentCheckPoint.transform.position;
+    }
+
+    IEnumerator WFS()
+    {
+        yield return new WaitForSeconds(2);
     }
 }

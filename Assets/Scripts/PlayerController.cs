@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 	
 	void Update () {
 
-        
+        //grounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
     }
 
     void FixedUpdate()
@@ -60,29 +60,24 @@ public class PlayerController : MonoBehaviour {
         }
         else horizontalMove = Input.GetAxis("Horizontal");
 
+
+
         if (Input.GetAxis("Vertical") != 0)
         {
-            if (grounded)
-            {
-                verticalMove = Input.GetAxisRaw("Vertical") * jumpPower;
-            }
-            else
-            {
-                if (Input.GetAxis("Vertical") > 0)
-                {
-                    verticalMove = Input.GetAxis("Vertical") * jetPackPowerUp;
-                    power--;
-                    PowerToInterfaceManager();
-                }
-                else if (Input.GetAxis("Vertical") < 0)
-                {
-                    verticalMove = Input.GetAxis("Vertical") * jetPackPowerDown;
-                    power--;
-                    PowerToInterfaceManager();
-                }
-            }
+            
+                verticalMove = Input.GetAxis("Vertical") * jetPackPowerUp;
+                power--;
+                PowerToInterfaceManager(); 
         }
         else verticalMove = Input.GetAxis("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
+        {
+            
+                verticalMove = jumpPower;
+        }
+
+       
         movement = new Vector2(horizontalMove, verticalMove);
         rb2D.AddForce(movement);
     }
@@ -98,10 +93,10 @@ public class PlayerController : MonoBehaviour {
         HPToInterfaceManager();
     }
 
-    void OnCollisionEnter2D(Collision2D coll)
-    {
-        print(coll.relativeVelocity.y);
-    }
+    //void OnCollisionEnter2D(Collision2D coll)
+    //{
+    //    print(rb2D.velocity.y);
+    //}
     void HPToInterfaceManager()
     {
         InterfaceManager.instance.hpText.text = HP.ToString();
