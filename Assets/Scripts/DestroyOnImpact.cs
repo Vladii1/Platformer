@@ -15,19 +15,18 @@ public class DestroyOnImpact : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.name == "Player")
+        if (coll.gameObject.name == "Player" && coll.gameObject.GetComponent<PlayerController>().isAlive == true)
         {
             print(coll.rigidbody.velocity.y);
             if (Mathf.Abs(coll.rigidbody.velocity.y) >= velocityThreshold || Mathf.Abs(coll.relativeVelocity.x) >= velocityThreshold)
             {
                 Destroy(gameObject);
-
             }
 
-            else
+            else 
             {
-                coll.gameObject.GetComponent<EmitParticle>().InstantiateParticle();
-                GameController.instance.PlayerRespown();
+                StartCoroutine(coll.gameObject.GetComponent<EmitParticle>().InstantiateParticle());
+                StartCoroutine(GameController.instance.PlayerRespown());
             }
         }
     }

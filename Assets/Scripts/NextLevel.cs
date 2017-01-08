@@ -17,7 +17,6 @@ public class NextLevel : MonoBehaviour {
     {
         if (other.name == "Player")
         {
-
             ManageScenes.instance.LoadLevel(nextSceneName);
         }
     }

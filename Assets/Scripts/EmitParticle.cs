@@ -12,8 +12,14 @@ public class EmitParticle : MonoBehaviour {
 	void Update () {
 	
 	}
-    public void InstantiateParticle()
+    public IEnumerator InstantiateParticle()
     {
-        Instantiate(particle, transform.position, Quaternion.identity);
+        Instantiate(particle, transform.position, Quaternion.identity,gameObject.transform);
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject.transform.Find("Particle System(Clone)").gameObject);
     }
+    //public void InstantiateParticle()
+    //{
+    //    Instantiate(particle, transform.position, Quaternion.identity);
+    //}
 }

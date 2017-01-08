@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour {
     public float jumpPower;
     public float jetPackPowerUp;
     public float jetPackPowerDown;
+    public float powerCostUp;
+    public float powerCostDown;
+    
 
     float horizontalMove;
     float verticalMove;
@@ -22,14 +25,17 @@ public class PlayerController : MonoBehaviour {
     public bool grounded;
 
     //HP and power
-    public int power = 100;
+    public float power = 100;
     public int HP = 100;
+
+    public bool isAlive; 
 
 
     void Start () {
         rb2D = GetComponent<Rigidbody2D>();
         HPToInterfaceManager();
         PowerToInterfaceManager();
+        isAlive = true;
         
 	}
 	
@@ -47,37 +53,38 @@ public class PlayerController : MonoBehaviour {
 
     void Movement()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0)
+        if(isAlive == true)
         {
-            if (grounded)
+            if (Input.GetAxisRaw("Horizontal") != 0)
             {
-                horizontalMove = Input.GetAxis("Horizontal") * speedGrounded;
+                if (grounded)
+                {
+                    horizontalMove = Input.GetAxis("Horizontal") * speedGrounded;
+                }
+                else
+                {
+                    horizontalMove = Input.GetAxis("Horizontal") * speedOffGround;
+                }
             }
-            else
+            else horizontalMove = Input.GetAxis("Horizontal");
+
+
+
+            if (Input.GetAxis("Vertical") > 0 && power > 0)
             {
-                horizontalMove = Input.GetAxis("Horizontal") * speedOffGround;
+                UsePower(powerCostUp);
             }
-        }
-        else horizontalMove = Input.GetAxis("Horizontal");
+            else if (Input.GetAxis("Vertical") < 0 && power > 0)
+            {
+                UsePower(powerCostDown);
+            }
+            else verticalMove = Input.GetAxis("Vertical");
 
-
-
-        if (Input.GetAxis("Vertical") != 0)
-        {
-            
-                verticalMove = Input.GetAxis("Vertical") * jetPackPowerUp;
-                power--;
-                PowerToInterfaceManager(); 
-        }
-        else verticalMove = Input.GetAxis("Vertical");
-
-        if (Input.GetKeyDown(KeyCode.Space) && grounded)
-        {
-            
+            if (Input.GetKeyDown(KeyCode.Space) && grounded)
+            {
                 verticalMove = jumpPower;
+            }
         }
-
-       
         movement = new Vector2(horizontalMove, verticalMove);
         rb2D.AddForce(movement);
     }
@@ -85,6 +92,12 @@ public class PlayerController : MonoBehaviour {
     public void ModifyPower(int modifyPower)
     {
         power += modifyPower;
+        PowerToInterfaceManager();
+    }
+    void UsePower (float powerCost)
+    {
+        verticalMove = Input.GetAxis("Vertical") * jetPackPowerDown;
+        power = power - powerCost;
         PowerToInterfaceManager();
     }
     public void ModifyHP (int modifyHP)
