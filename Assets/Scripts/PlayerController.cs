@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour {
         HPToInterfaceManager();
         PowerToInterfaceManager();
         isAlive = true;
-        
 	}
 	
 	
@@ -66,7 +65,7 @@ public class PlayerController : MonoBehaviour {
                     horizontalMove = Input.GetAxis("Horizontal") * speedOffGround;
                 }
             }
-            else horizontalMove = Input.GetAxis("Horizontal");
+            else horizontalMove = Input.GetAxis("Horizontal"); // what does it do?
 
 
 
@@ -84,7 +83,7 @@ public class PlayerController : MonoBehaviour {
             {
                 verticalMove = jumpPower;
             }
-        }
+       } 
         movement = new Vector2(horizontalMove, verticalMove);
         rb2D.AddForce(movement);
     }
