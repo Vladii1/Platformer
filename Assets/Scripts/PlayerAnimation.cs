@@ -4,13 +4,28 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour {
     Animator anim;
-	// Use this for initialization
+    PlayerController player;
+    Transform playerTransform;
+
 	void Start () {
-        anim = GetComponent<Animator>();	
+        anim = GetComponent<Animator>();
+        player = GetComponentInParent<PlayerController>();
+        playerTransform = GetComponentInParent<Transform>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+        if (player.horizontalMove != 0)
+        {
+            anim.SetBool("isWalking", true);
+            if (player.horizontalMove > 0) playerTransform.localScale = new Vector3(1, 1, 1);
+            else if (player.horizontalMove < 0) playerTransform.localScale = new Vector3(-1, 1, 1);
+        }
+        else anim.SetBool("isWalking", false);
+       
+        if (Input.GetKeyDown(KeyCode.Space)) anim.SetTrigger("jumpDown");
+        if (Input.GetKeyUp(KeyCode.Space)) anim.SetTrigger("jumpUp");
+
 	}
 }

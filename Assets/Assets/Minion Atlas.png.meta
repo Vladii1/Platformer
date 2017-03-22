@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: feba4e668a3d7f34ca898db20de68c6f
-timeCreated: 1487018296
+timeCreated: 1489523828
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -11,6 +11,8 @@ TextureImporter:
     21300008: path4240_4
     21300010: path4240_5
     21300012: path4240_6
+    21300014: Minion Atlas_0
+    21300016: Minion Atlas_1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -112,7 +114,7 @@ TextureImporter:
         x: 0
         y: 751
         width: 145
-        height: 246
+        height: 216
       alignment: 9
       pivot: {x: 0.29293722, y: 0.82197064}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,6 +180,32 @@ TextureImporter:
         y: 0
         width: 411
         height: 372
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Minion Atlas_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 973
+        width: 104
+        height: 174
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: Minion Atlas_1
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 1160
+        width: 106
+        height: 168
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

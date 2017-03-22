@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour {
     public float powerCostDown;
     
 
-    float horizontalMove;
+    public float horizontalMove;
     float verticalMove;
     Vector2 movement;
 
@@ -67,8 +67,6 @@ public class PlayerController : MonoBehaviour {
             }
             else horizontalMove = Input.GetAxis("Horizontal"); // what does it do?
 
-
-
             if (Input.GetAxis("Vertical") > 0 && power > 0)
             {
                 UsePower(powerCostUp);
@@ -79,7 +77,7 @@ public class PlayerController : MonoBehaviour {
             }
             else verticalMove = Input.GetAxis("Vertical");
 
-            if (Input.GetKeyDown(KeyCode.Space) && grounded)
+            if (Input.GetKeyUp(KeyCode.Space) && grounded)
             {
                 verticalMove = jumpPower;
             }
