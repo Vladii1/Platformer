@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour {
     Animator anim;
+    public Animator animMouth;
     PlayerController player;
     Transform playerTransform;
 
 	void Start () {
         anim = GetComponent<Animator>();
+        //animMouth = GetComponentInChildren<Animator>();
         player = GetComponentInParent<PlayerController>();
         playerTransform = GetComponentInParent<Transform>();
 	}
@@ -25,7 +27,10 @@ public class PlayerAnimation : MonoBehaviour {
         else anim.SetBool("isWalking", false);
        
         if (Input.GetKeyDown(KeyCode.Space)) anim.SetTrigger("jumpDown");
-        if (Input.GetKeyUp(KeyCode.Space)) anim.SetTrigger("jumpUp");
-
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            anim.SetTrigger("jumpUp");
+            animMouth.SetTrigger("jump");
+        }
 	}
 }

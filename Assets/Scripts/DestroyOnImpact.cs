@@ -15,7 +15,7 @@ public class DestroyOnImpact : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.name == "Player" && coll.gameObject.GetComponent<PlayerController>().isAlive == true)
+        if (coll.gameObject.tag == "Player" && coll.gameObject.GetComponent<PlayerController>().isAlive == true)
         {
             print(coll.rigidbody.velocity.y);
             if (Mathf.Abs(coll.rigidbody.velocity.y) >= velocityThreshold || Mathf.Abs(coll.relativeVelocity.x) >= velocityThreshold)
