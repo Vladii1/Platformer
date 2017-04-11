@@ -18,13 +18,13 @@ public class GameController : MonoBehaviour {
     public IEnumerator  PlayerRespown()
     {
         player.GetComponent<Collider2D>().enabled = false;
-        player.GetComponent<SpriteRenderer>().enabled = false;
+        player.transform.Find("Minion Animation").gameObject.SetActive(false);
         player.GetComponent<PlayerController>().isAlive = false; 
         player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         player.GetComponent<Rigidbody2D>().isKinematic = true;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         player.GetComponent<Collider2D>().enabled = true;
-        player.GetComponent<SpriteRenderer>().enabled = true;
+        player.transform.Find("Minion Animation").gameObject.SetActive(true);
         player.transform.position = currentCheckPoint.transform.position;
         player.GetComponent<PlayerController>().isAlive = true;
         player.GetComponent<Rigidbody2D>().isKinematic = false;
