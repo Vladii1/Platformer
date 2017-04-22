@@ -17,10 +17,7 @@ public class CheckPoint : MonoBehaviour {
     {
         if (other.name == "Player" && GameController.instance.currentCheckPoint.GetComponent<CheckPoint>().count < count)
         {
-            
             GameController.instance.currentCheckPoint = gameObject;
         }
-        
-
     }
 }

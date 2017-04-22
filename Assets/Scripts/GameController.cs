@@ -11,15 +11,17 @@ public class GameController : MonoBehaviour {
     {
         if (instance == null) instance = this;
         else if (instance != this) Destroy(gameObject);
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);    
     }
-   
-
+    private void Start()
+    {
+       // StartCoroutine(PlayerRespown());
+    }
     public IEnumerator  PlayerRespown()
     {
+        player.GetComponent<PlayerController>().isAlive = false;
         player.GetComponent<Collider2D>().enabled = false;
         player.transform.Find("Minion Animation").gameObject.SetActive(false);
-        player.GetComponent<PlayerController>().isAlive = false; 
         player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         player.GetComponent<Rigidbody2D>().isKinematic = true;
         yield return new WaitForSeconds(2);
