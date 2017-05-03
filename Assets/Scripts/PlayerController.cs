@@ -25,14 +25,23 @@ public class PlayerController : MonoBehaviour {
     public bool grounded;
 
     //HP and power
-    public float power = 100;
-    public int HP = 100;
+    
+    [SerializeField]
+    float basePower;
+    float power;
+    [SerializeField]
+    float baseHP;
+    float HP;
 
-    public bool isAlive; 
+    public bool isAlive;
+
+    public float pushBackModifyer = 0.5f;
 
 
     void Start () {
         rb2D = GetComponent<Rigidbody2D>();
+        power = basePower;
+        HP = baseHP;
         HPToInterfaceManager();
         PowerToInterfaceManager();
         isAlive = true;
@@ -101,12 +110,44 @@ public class PlayerController : MonoBehaviour {
     {
         HP += modifyHP;
         HPToInterfaceManager();
+
+        if (HP <= 0)
+        {
+            KillPlayer();
+        }
+    }
+    void KillPlayer()
+    {
+        StartCoroutine(GameController.instance.PlayerRespown());
+        StartCoroutine(GetComponent<EmitParticle>().InstantiateParticle());
     }
 
-    //void OnCollisionEnter2D(Collision2D coll)
-    //{
-    //    print(rb2D.velocity.y);
-    //}
+    public void SlowPlayerDown()
+    {
+        Vector2 playerVelocity;
+
+        playerVelocity = rb2D.velocity;
+        rb2D.velocity.Set(playerVelocity.x * 0.5f, playerVelocity.y *0.5f);
+        //playerVelocity.x = playerVelocity.x - speedDecrease;
+        //playerVelocity.y = playerVelocity.y - speedDecrease; 
+    }
+
+    public void PushPlayerBack()
+    {
+        Vector2 playerVelocity;
+        playerVelocity = rb2D.velocity;
+
+        print(playerVelocity);
+        rb2D.AddForce(new Vector2(1000, 1000));
+
+        rb2D.velocity.Set(10000, 10000);
+        //rb2D.velocity.Set(playerVelocity.x * -pushBackModifyer, playerVelocity.y * -pushBackModifyer);
+        //playerVelocity.x = playerVelocity.x * -pushBackModifyer;
+        //playerVelocity.y = playerVelocity.y * -pushBackModifyer;
+        print(playerVelocity);
+
+    }
+
     void HPToInterfaceManager()
     {
         InterfaceManager.instance.hpText.text = HP.ToString();

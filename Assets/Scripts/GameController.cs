@@ -24,7 +24,9 @@ public class GameController : MonoBehaviour {
         player.transform.Find("Minion Animation").gameObject.SetActive(false);
         player.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
         player.GetComponent<Rigidbody2D>().isKinematic = true;
+
         yield return new WaitForSeconds(2);
+
         player.GetComponent<Collider2D>().enabled = true;
         player.transform.Find("Minion Animation").gameObject.SetActive(true);
         player.transform.position = currentCheckPoint.transform.position;
