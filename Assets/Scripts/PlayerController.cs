@@ -8,11 +8,9 @@ public class PlayerController : MonoBehaviour {
     public float speedGrounded;
     public float speedOffGround;
     public float jumpPower;
-    public float jetPackPowerUp;
-    public float jetPackPowerDown;
-    public float powerCostUp;
-    public float powerCostDown;
-    
+    public float jetPackPower;
+    public float powerCost;
+
 
     public float horizontalMove;
     float verticalMove;
@@ -63,34 +61,61 @@ public class PlayerController : MonoBehaviour {
     {
         if(isAlive == true)
         {
-            if (Input.GetAxisRaw("Horizontal") != 0)
+           
+            if (Input.GetAxisRaw("Horizontal") != 0 && Input.GetKey(KeyCode.LeftShift))
             {
                 if (grounded)
                 {
-                    horizontalMove = Input.GetAxis("Horizontal") * speedGrounded;
+                    horizontalMove = Move(powerCost, jetPackPower,  "Horizontal");
                 }
                 else
                 {
-                    horizontalMove = Input.GetAxis("Horizontal") * speedOffGround;
+                    horizontalMove = Move(powerCost, jetPackPower, "Horizontal");
                 }
             }
-            else horizontalMove = Input.GetAxis("Horizontal"); // what does it do?
+            else if (Input.GetAxisRaw("Horizontal") != 0)
+                {
+                if (grounded)
+                {
+                    horizontalMove = Move(speedGrounded, "Horizontal");
 
-            if (Input.GetAxis("Vertical") > 0 && power > 0)
-            {
-                UsePower(powerCostUp);
+                }
+                else
+                {
+                    horizontalMove = Move(speedGrounded, "Horizontal");
+                }
             }
-            else if (Input.GetAxis("Vertical") < 0 && power > 0)
+            else horizontalMove = Input.GetAxis("Horizontal");
+
+
+
+            if (Input.GetAxisRaw("Vertical") != 0 && Input.GetKey(KeyCode.LeftShift))
             {
-                UsePower(powerCostDown);
+                if (grounded)
+                {
+
+                    verticalMove = Move(powerCost, jetPackPower, "Vertical");
+                }
+                else
+                {
+                    verticalMove = Move(powerCost, jetPackPower, "Vertical");
+                }
+
+            }
+            else if (Input.GetKeyDown(KeyCode.W))
+            {
+                if (grounded)
+                {
+                    verticalMove = jumpPower;
+                }
+                else
+                {
+
+                }
             }
             else verticalMove = Input.GetAxis("Vertical");
+        }
 
-            if (Input.GetKeyUp(KeyCode.Space) && grounded)
-            {
-                verticalMove = jumpPower;
-            }
-       } 
         movement = new Vector2(horizontalMove, verticalMove);
         rb2D.AddForce(movement);
     }
@@ -100,12 +125,19 @@ public class PlayerController : MonoBehaviour {
         power += modifyPower;
         PowerToInterfaceManager();
     }
-    void UsePower (float powerCost)
+    float Move(float powerCost, float powerModifier, string axis)
     {
-        verticalMove = Input.GetAxis("Vertical") * jetPackPowerDown;
+        float move = Input.GetAxis(axis) * powerModifier;
         power = power - powerCost;
         PowerToInterfaceManager();
+        return move;
     }
+    float Move (float powerModifier, string axis)
+    {
+        float move = Input.GetAxis(axis) * powerModifier;
+        return move;
+    }
+   
     public void ModifyHP (int modifyHP)
     {
         HP += modifyHP;
@@ -138,9 +170,9 @@ public class PlayerController : MonoBehaviour {
         playerVelocity = rb2D.velocity;
 
         print(playerVelocity);
-        rb2D.AddForce(new Vector2(1000, 1000));
+        rb2D.AddForce(new Vector2((rb2D.velocity.x + jumpPower),(rb2D.velocity.y + jumpPower)));
 
-        rb2D.velocity.Set(10000, 10000);
+        //rb2D.velocity.Set(10000, 10000);
         //rb2D.velocity.Set(playerVelocity.x * -pushBackModifyer, playerVelocity.y * -pushBackModifyer);
         //playerVelocity.x = playerVelocity.x * -pushBackModifyer;
         //playerVelocity.y = playerVelocity.y * -pushBackModifyer;
