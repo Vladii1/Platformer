@@ -22,12 +22,12 @@ public class EnemyMove : MonoBehaviour {
         {
             
             rb2D.velocity = new Vector2(moveSpeed, 0);
-            transform.localScale = new Vector3(-scale, scale, scale);
+            transform.localScale = new Vector3(scale, scale, scale);
         }
         else
         {
             rb2D.velocity = new Vector2(-moveSpeed, 0);
-            transform.localScale = new Vector3(scale, scale, scale);
+            transform.localScale = new Vector3(-scale, scale, scale);
         }
     }
     public void ChangeDirection ()

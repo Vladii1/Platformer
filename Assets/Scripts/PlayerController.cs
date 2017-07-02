@@ -34,7 +34,10 @@ public class PlayerController : MonoBehaviour {
     public bool isAlive;
 
     public float pushBackModifyer = 0.5f;
+    [SerializeField]
+    GameObject animationParent;
 
+    Vector2 playerVelocity;
 
     void Start () {
         rb2D = GetComponent<Rigidbody2D>();
@@ -61,7 +64,9 @@ public class PlayerController : MonoBehaviour {
     {
         if(isAlive == true)
         {
-           
+            #region Horizontal input
+
+
             if (Input.GetAxisRaw("Horizontal") != 0 && Input.GetKey(KeyCode.LeftShift))
             {
                 if (grounded)
@@ -86,9 +91,9 @@ public class PlayerController : MonoBehaviour {
                 }
             }
             else horizontalMove = Input.GetAxis("Horizontal");
+            #endregion
 
-
-
+            #region Vertical input 
             if (Input.GetAxisRaw("Vertical") != 0 && Input.GetKey(KeyCode.LeftShift))
             {
                 if (grounded)
@@ -114,6 +119,7 @@ public class PlayerController : MonoBehaviour {
                 }
             }
             else verticalMove = Input.GetAxis("Vertical");
+            #endregion
         }
 
         movement = new Vector2(horizontalMove, verticalMove);
@@ -156,28 +162,25 @@ public class PlayerController : MonoBehaviour {
 
     public void SlowPlayerDown()
     {
-        Vector2 playerVelocity;
-
+        
         playerVelocity = rb2D.velocity;
-        rb2D.velocity.Set(playerVelocity.x * 0.5f, playerVelocity.y *0.5f);
-        //playerVelocity.x = playerVelocity.x - speedDecrease;
-        //playerVelocity.y = playerVelocity.y - speedDecrease; 
+        rb2D.AddForce(new Vector2(rb2D.velocity.x * -0.5f, rb2D.velocity.y * -0.5f) * speedGrounded);
     }
 
-    public void PushPlayerBack()
+    public void PushPlayerBack(float enemyPositionX)
     {
-        Vector2 playerVelocity;
         playerVelocity = rb2D.velocity;
 
-        print(playerVelocity);
-        rb2D.AddForce(new Vector2((rb2D.velocity.x + jumpPower),(rb2D.velocity.y + jumpPower)));
-
-        //rb2D.velocity.Set(10000, 10000);
-        //rb2D.velocity.Set(playerVelocity.x * -pushBackModifyer, playerVelocity.y * -pushBackModifyer);
-        //playerVelocity.x = playerVelocity.x * -pushBackModifyer;
-        //playerVelocity.y = playerVelocity.y * -pushBackModifyer;
-        print(playerVelocity);
-
+        if (enemyPositionX > transform.position.x)
+        {
+            rb2D.AddForce(new Vector2((rb2D.velocity.x + jumpPower) * -1,
+            (rb2D.velocity.y + jumpPower) * 1));
+        }
+        else if (enemyPositionX < transform.position.x)
+        {
+            rb2D.AddForce(new Vector2((rb2D.velocity.x + jumpPower) * 1,
+            (rb2D.velocity.y + jumpPower) * 1));
+        }
     }
 
     void HPToInterfaceManager()
