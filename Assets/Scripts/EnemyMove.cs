@@ -5,7 +5,7 @@ public class EnemyMove : MonoBehaviour {
 
     Rigidbody2D rb2D;
     public float moveSpeed;
-    bool isMovingRight;
+    public bool isMovingRight;
 
     float scale;
 
