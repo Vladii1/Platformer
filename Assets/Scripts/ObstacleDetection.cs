@@ -11,11 +11,11 @@ public class ObstacleDetection : MonoBehaviour
     public Transform edgeCheck;
     bool isOnEdge;
 
-    EnemyMove moveScript;
+    EnemyMoveLeftToRight moveScript;
 
     void Start()
     {
-        moveScript = GetComponent<EnemyMove>();
+        moveScript = GetComponent<EnemyMoveLeftToRight>();
     }
 
     void Update()
@@ -30,7 +30,7 @@ public class ObstacleDetection : MonoBehaviour
         if (hittingWall || !onEdge)
         {
             
-            //moveScript.ChangeDirection();
+            moveScript.ChangeDirection();
         }
     }
 }

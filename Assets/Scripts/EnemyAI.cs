@@ -9,7 +9,7 @@ public class EnemyAI : MonoBehaviour {
 
     private Rigidbody2D rb2D;
     private Seeker seeker;
-    private EnemyMove enemyMove;
+    private EnemyMoveFollow enemyMove;
 
     public Transform target;
 
@@ -30,13 +30,16 @@ public class EnemyAI : MonoBehaviour {
 
     float nextWayPointX;
 
+    [SerializeField]
+    bool canFly;
+
 
     // Use this for initialization
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
-        enemyMove = GetComponent<EnemyMove>();
+        enemyMove = GetComponent<EnemyMoveFollow>();
 
         if (target == null)
         {
@@ -70,24 +73,21 @@ public class EnemyAI : MonoBehaviour {
         }
         pathHasEnded = false;
         Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
-        dir *= speed *Time.deltaTime;
+
         //Add checking direction here
         //check transform.position.x and nextWayPoint.pos.x and base on that make the enemy face right or left 
-        
+
         nextWayPointX = path.vectorPath[currentWaypoint].x;
 
-        rb2D.AddForce(dir, forceMode);
-
-        if (nextWayPointX > transform.position.x)
+        if (canFly)
         {
-            enemyMove.ChangeDirection(true);
+            enemyMove.Move(dir.x, dir.y);
         }
-        else if (nextWayPointX < transform.position.x)
+        if (!canFly)
         {
-            enemyMove.ChangeDirection(false);
+            enemyMove.Move(dir.x);
         }
-        
-
+       
         float distance = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
         if (distance < nextWaypointDistance)
         {

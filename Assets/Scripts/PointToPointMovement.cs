@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class PointToPointMovement : MonoBehaviour {
-    public EnemyMove moveScript;
+    EnemyMoveLeftToRight moveScript;
 	// Use this for initialization
 	void Start () {
-        moveScript = moveScript.GetComponent<EnemyMove>();
+        moveScript = GetComponent<EnemyMoveLeftToRight>();
 	}
 	
 	// Update is called once per frame
@@ -14,9 +14,9 @@ public class PointToPointMovement : MonoBehaviour {
 	}
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.name == moveScript.gameObject.name)
+        if (collider.tag == "PointToPointTrigger")
         {
-            //moveScript.ChangeDirection();
+            moveScript.ChangeDirection();
         }
     }
 }
