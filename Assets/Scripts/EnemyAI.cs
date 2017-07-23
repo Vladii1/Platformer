@@ -27,12 +27,16 @@ public class EnemyAI : MonoBehaviour {
 
     public float speed;
     public ForceMode2D forceMode;
+
+    float nextWayPointX;
+
+
     // Use this for initialization
     void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
         seeker = GetComponent<Seeker>();
-        //enemyMove = GetComponent<EnemyMove>();
+        enemyMove = GetComponent<EnemyMove>();
 
         if (target == null)
         {
@@ -67,7 +71,22 @@ public class EnemyAI : MonoBehaviour {
         pathHasEnded = false;
         Vector3 dir = (path.vectorPath[currentWaypoint] - transform.position).normalized;
         dir *= speed *Time.deltaTime;
+        //Add checking direction here
+        //check transform.position.x and nextWayPoint.pos.x and base on that make the enemy face right or left 
+        
+        nextWayPointX = path.vectorPath[currentWaypoint].x;
+
         rb2D.AddForce(dir, forceMode);
+
+        if (nextWayPointX > transform.position.x)
+        {
+            enemyMove.ChangeDirection(true);
+        }
+        else if (nextWayPointX < transform.position.x)
+        {
+            enemyMove.ChangeDirection(false);
+        }
+        
 
         float distance = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);
         if (distance < nextWaypointDistance)

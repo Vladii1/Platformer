@@ -30,7 +30,7 @@ public class ObstacleDetection : MonoBehaviour
         if (hittingWall || !onEdge)
         {
             
-            moveScript.ChangeDirection();
+            //moveScript.ChangeDirection();
         }
     }
 }

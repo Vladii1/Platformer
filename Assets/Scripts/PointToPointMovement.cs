@@ -16,7 +16,7 @@ public class PointToPointMovement : MonoBehaviour {
     {
         if (collider.name == moveScript.gameObject.name)
         {
-            moveScript.ChangeDirection();
+            //moveScript.ChangeDirection();
         }
     }
 }
