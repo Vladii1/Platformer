@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMoveFollow : MonoBehaviour {
-
+   
     Rigidbody2D rb2D;
     public float moveSpeed;
     float scale;
@@ -30,17 +30,21 @@ public class EnemyMoveFollow : MonoBehaviour {
     public void Move(float directionX)
     {
         rb2D.velocity = new Vector2(directionX * moveSpeed, 0) * Time.deltaTime;
-        CheckDirection(directionX);
+        
     }
-    void CheckDirection(float X)
+    public void CheckDirection(float targetPositionX)
     {
-        if (X > 0)
+        if ( targetPositionX > transform.position.x)
+        {
+            transform.localScale = new Vector3(-scale, scale, scale);
+        }
+        else if (targetPositionX < transform.position.x)
         {
             transform.localScale = new Vector3(scale, scale, scale);
         }
         else
         {
-            transform.localScale = new Vector3(-scale, scale, scale);
+
         }
     }
 }

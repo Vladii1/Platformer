@@ -82,10 +82,12 @@ public class EnemyAI : MonoBehaviour {
         if (canFly)
         {
             enemyMove.Move(dir.x, dir.y);
+            enemyMove.CheckDirection(target.transform.position.x);
         }
         if (!canFly)
         {
             enemyMove.Move(dir.x);
+            enemyMove.CheckDirection(target.transform.position.x);
         }
        
         float distance = Vector3.Distance(transform.position, path.vectorPath[currentWaypoint]);

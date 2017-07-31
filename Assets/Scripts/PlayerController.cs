@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
+    public Transform playerTransform;
     Rigidbody2D rb2D;
     // movement
     public float speedGrounded;
