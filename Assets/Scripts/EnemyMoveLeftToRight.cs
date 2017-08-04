@@ -23,13 +23,13 @@ public class EnemyMoveLeftToRight : MonoBehaviour {
         {
             rb2D.velocity = new Vector2(moveSpeed, 0) * Time.deltaTime;
             //rb2D.AddForce(new Vector2(moveSpeed, 0) * Time.deltaTime);
-            transform.localScale = new Vector3(scale, scale, scale);
+            transform.localScale = new Vector3(-scale, scale, scale);
         }
         else
         {
             rb2D.velocity = new Vector2(-moveSpeed, 0) * Time.deltaTime;
             //rb2D.AddForce(new Vector2(-moveSpeed, 0) * Time.deltaTime);
-            transform.localScale = new Vector3(-scale, scale, scale);
+            transform.localScale = new Vector3(scale, scale, scale);
         }
     }
 
