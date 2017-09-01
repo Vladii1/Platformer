@@ -108,23 +108,25 @@ public class PlayerController : MonoBehaviour {
                 }
 
             }
-            else if (Input.GetKeyDown(KeyCode.W))
-            {
-                if (grounded)
-                {
-                    verticalMove = jumpPower;
-                }
-                else
-                {
+            //else if (Input.GetKeyDown(KeyCode.W))
+            //{
+            //    if (grounded)
+            //    {
+            //        verticalMove = jumpPower;
+            //    }
+            //    else
+            //    {
 
-                }
-            }
+            //    }
+            //}
             else verticalMove = Input.GetAxis("Vertical");
             #endregion
         }
 
         movement = new Vector2(horizontalMove, verticalMove);
         rb2D.AddForce(movement);
+        // print("movement: " + movement);
+        //print("velocity: " + rb2D.velocity);
     }
 
     public void ModifyPower(int modifyPower)
