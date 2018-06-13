@@ -53,9 +53,6 @@ public class JetpackController : MonoBehaviour {
         particleMain = particle.main;
         renderer = particle.GetComponent<Renderer>();
         renderer.sortingLayerName = "Player";
-
-       
-
     }
 
     void Start()
@@ -231,7 +228,7 @@ public class JetpackController : MonoBehaviour {
 
     void JetpackOn()
     {
-        if (isUsingPower == true)
+        if (isUsingPower == true && playerController.power > 0)
         {
             emissionRate.rateOverTime = emissionJetpatck;
             camShake.ShakeTheCamera(shakeAmount, shakeLength);
