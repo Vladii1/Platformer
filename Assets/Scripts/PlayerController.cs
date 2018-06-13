@@ -3,6 +3,10 @@ using System.Collections;
 using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
+
+    //General movement class taking care of moving player, calculating power cost and
+    //sending refresh request to Interface Manager via ModifyPower and ModifyHP methods 
+
     public Transform playerTransform;
     Rigidbody2D rb2D;
     // movement
@@ -119,8 +123,7 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    //General movement class taking care of moving player, calculating power cost and
-    //sending refresh request to Interface Manager via ModifyPower and ModifyHP methods 
+    
     void Movement()
     {
         if(isAlive == true)
